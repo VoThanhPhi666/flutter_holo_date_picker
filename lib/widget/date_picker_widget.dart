@@ -13,19 +13,20 @@ const List<int> _solarMonthsOf31Days = const <int>[1, 3, 5, 7, 8, 10, 12];
 
 /// DatePicker widget.
 class DatePickerWidget extends StatefulWidget {
-  DatePickerWidget({
-    Key? key,
-    this.firstDate,
-    this.lastDate,
-    this.initialDate,
-    this.dateFormat: DATETIME_PICKER_DATE_FORMAT,
-    this.locale: DATETIME_PICKER_LOCALE_DEFAULT,
-    this.pickerTheme: DateTimePickerTheme.Default,
-    this.onCancel,
-    this.onChange,
-    this.onConfirm,
-    this.looping: false,
-  }) : super(key: key) {
+  DatePickerWidget(
+      {Key? key,
+      this.firstDate,
+      this.lastDate,
+      this.initialDate,
+      this.dateFormat: DATETIME_PICKER_DATE_FORMAT,
+      this.locale: DATETIME_PICKER_LOCALE_DEFAULT,
+      this.pickerTheme: DateTimePickerTheme.Default,
+      this.onCancel,
+      this.onChange,
+      this.onConfirm,
+      this.looping: false,
+      this.hasDivider = false})
+      : super(key: key) {
     DateTime minTime = firstDate ?? DateTime.parse(DATE_PICKER_MIN_DATETIME);
     DateTime maxTime = lastDate ?? DateTime.parse(DATE_PICKER_MAX_DATETIME);
     assert(minTime.compareTo(maxTime) < 0);
@@ -39,6 +40,7 @@ class DatePickerWidget extends StatefulWidget {
   final DateVoidCallback? onCancel;
   final DateValueCallback? onChange, onConfirm;
   final bool looping;
+  final bool hasDivider;
 
   @override
   State<StatefulWidget> createState() =>
@@ -231,12 +233,14 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                   children: <Widget>[
                     SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                     Expanded(
-                      child: Divider(
-                        color: widget.pickerTheme!.dividerColor ??
-                            widget.pickerTheme!.itemTextStyle.color,
-                        height: 1,
-                        thickness: 2,
-                      ),
+                      child: widget.hasDivider
+                          ? Divider(
+                              color: widget.pickerTheme!.dividerColor ??
+                                  widget.pickerTheme!.itemTextStyle.color,
+                              height: 1,
+                              thickness: 2,
+                            )
+                          : const SizedBox(),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.02)
                   ],
@@ -250,12 +254,14 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                   children: <Widget>[
                     SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                     Expanded(
-                      child: Divider(
-                        color: widget.pickerTheme!.dividerColor ??
-                            widget.pickerTheme!.itemTextStyle.color,
-                        height: 1,
-                        thickness: 2,
-                      ),
+                      child: widget.hasDivider
+                          ? Divider(
+                              color: widget.pickerTheme!.dividerColor ??
+                                  widget.pickerTheme!.itemTextStyle.color,
+                              height: 1,
+                              thickness: 2,
+                            )
+                          : const SizedBox(),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                   ],
