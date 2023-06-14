@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'strings_vi.dart';
+
 part 'strings_ar.dart';
 
 part 'strings_bn.dart';
@@ -52,8 +54,8 @@ part 'strings_cz.dart';
 
 part 'strings_pl.dart';
 
-abstract class _StringsI18n {
-  const _StringsI18n();
+abstract class StringsI18n {
+  const StringsI18n();
 
   /// Get the done widget text
   String getDoneText();
@@ -149,13 +151,16 @@ enum DateTimePickerLocale {
 
   /// Polish (PL)
   pl,
+
+  /// VietNam (VI)
+  vi,
 }
 
 /// Default value of date locale
 const DateTimePickerLocale DATETIME_PICKER_LOCALE_DEFAULT =
     DateTimePickerLocale.en_us;
 
-const Map<DateTimePickerLocale, _StringsI18n> datePickerI18n = {
+const Map<DateTimePickerLocale, StringsI18n> datePickerI18n = {
   DateTimePickerLocale.en_us: const _StringsEnUs(),
   DateTimePickerLocale.zh_cn: const _StringsZhCn(),
   DateTimePickerLocale.pt_br: const _StringsPtBr(),
@@ -182,26 +187,27 @@ const Map<DateTimePickerLocale, _StringsI18n> datePickerI18n = {
   DateTimePickerLocale.sv: const _StringsSv(),
   DateTimePickerLocale.cz: const _StringsCz(),
   DateTimePickerLocale.pl: const _StringsPl(),
+  DateTimePickerLocale.vi: const StringsVi()
 };
 
 class DatePickerI18n {
   /// Get done button text
   static String getLocaleDone(DateTimePickerLocale locale) {
-    _StringsI18n i18n = datePickerI18n[locale] ??
+    StringsI18n i18n = datePickerI18n[locale] ??
         datePickerI18n[DATETIME_PICKER_LOCALE_DEFAULT]!;
     return i18n.getDoneText();
   }
 
   /// Get cancel button text
   static String getLocaleCancel(DateTimePickerLocale locale) {
-    _StringsI18n i18n = datePickerI18n[locale] ??
+    StringsI18n i18n = datePickerI18n[locale] ??
         datePickerI18n[DATETIME_PICKER_LOCALE_DEFAULT]!;
     return i18n.getCancelText();
   }
 
   /// Get locale month array
   static List<String> getLocaleMonths(DateTimePickerLocale? locale) {
-    _StringsI18n i18n = datePickerI18n[locale!] ??
+    StringsI18n i18n = datePickerI18n[locale!] ??
         datePickerI18n[DATETIME_PICKER_LOCALE_DEFAULT]!;
     List<String> months = i18n.getMonths();
     if (months.isNotEmpty) {
@@ -213,7 +219,7 @@ class DatePickerI18n {
   /// Get locale week array
   static List<String>? getLocaleWeeks(DateTimePickerLocale? locale,
       [bool isFull = true]) {
-    _StringsI18n? i18n = datePickerI18n[locale!] ??
+    StringsI18n? i18n = datePickerI18n[locale!] ??
         datePickerI18n[DATETIME_PICKER_LOCALE_DEFAULT];
     if (isFull) {
       List<String> weeks = i18n!.getWeeksFull();
